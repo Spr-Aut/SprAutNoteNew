@@ -4,6 +4,8 @@ import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.RenderEffect;
+import android.graphics.Shader;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;

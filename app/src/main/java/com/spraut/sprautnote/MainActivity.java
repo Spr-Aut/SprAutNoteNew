@@ -33,7 +33,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
-    private ImageView mBtnAdd;
+    private Button mBtnAdd;
     private List<Note> mNotes;
     private MyAdapter mMyAdapter;
     private ImageView mIvInfo;
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //关于应用页面
-        /*mIvInfo=findViewById(R.id.iv_main_top_icon);
+        mIvInfo=findViewById(R.id.iv_bar_main_top_icon);
         mIvInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent=new Intent(MainActivity.this,AboutActivity.class);
                 startActivity(intent,activityOptions.toBundle());
             }
-        });*/
+        });
 
         //搜索页面
         mIvSearch=findViewById(R.id.iv_bar_main_top_search);

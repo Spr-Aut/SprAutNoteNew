@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SprAut</string>
+    <string name="app_name">速记</string>
     <dimen name="rectangel_radius">19dp</dimen>
     <dimen name="padding_horizontal_main">25dp</dimen>
     <dimen name="padding_top_main">40dp</dimen>
@@ -17,11 +17,11 @@
     <string name="about_balabala">目前并非最终版本，努力更新中\n不能保证稳定性</string>
     <string name="about_developer">开发者</string>
     <string name="about_me">关于我</string>
-    <string name="about_loc">FanJie</string>
+    <string name="about_loc">SprAut</string>
     <string name="about_email">邮箱</string>
     <string name="about_email2">1493706520@qq.com</string>
 
-    <string name="version">v1.8</string>
+    <string name="version">v1.9</string>
     <string name="update_log">更新日志</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>

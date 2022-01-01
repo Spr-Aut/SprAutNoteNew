@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.spraut.sprautnote">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/app_icon"
@@ -23,6 +24,7 @@
         <activity android:name=".Image.ImageActivity"></activity>
         <activity android:name=".SearchActivity"></activity>
         <activity android:name="com.lling.photopicker.PhotoPickerActivity"></activity>
+        <activity android:name=".AboutActivity"></activity>
     </application>
 
 </manifest>
