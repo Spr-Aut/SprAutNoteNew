@@ -15,7 +15,7 @@
         android:paddingTop="@dimen/padding_top_main"
         android:paddingBottom="10dp"
         >
-        <!--应用图标-->
+        <!--顶部应用图标-->
         <ImageView
             android:id="@+id/iv_bar_main_top_icon"
             android:layout_width="wrap_content"
@@ -23,6 +23,7 @@
             android:src="@mipmap/app_icon_64"
             android:paddingHorizontal="@dimen/padding_horizontal_bar_main_top"
             />
+        <!--顶部时间-->
         <TextView
             android:id="@+id/tv_bar_main_top_time"
             android:layout_width="wrap_content"
@@ -31,14 +32,36 @@
             style="@style/TextStyleBarMainTop"
             android:text="2022年1月1日"
             />
+        <!--顶部搜索按钮-->
         <ImageView
+            android:id="@+id/iv_bar_main_top_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/icon_search"
             android:layout_alignParentRight="true"
             android:paddingHorizontal="@dimen/padding_horizontal_bar_main_top"
             />
-
     </RelativeLayout>
+
+    <!--“添加”按钮-->
+    <ImageView
+        android:id="@+id/btn_main_add"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:elevation="8dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="50dp"
+        android:src="@mipmap/add"
+        />
+
+    <!--列表-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/bar_main_top"
+        />
 
 </RelativeLayout>

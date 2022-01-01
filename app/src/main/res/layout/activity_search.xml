@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SearchActivity"
+    android:background="@color/main_bg"
+    >
+    <RelativeLayout
+        android:id="@+id/relative_search_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/padding_top_main"
+        >
+        <ImageView
+            android:id="@+id/iv_search_top_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_search"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"
+            android:paddingHorizontal="30dp"
+            />
+        <SearchView
+            android:id="@+id/search_view"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:iconifiedByDefault="false"
+            android:queryHint="搜索"
+            android:layout_centerHorizontal="true"
+            >
+            <requestFocus/>
+        </SearchView>
+    </RelativeLayout>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relative_search_top"
+        />
+
+
+
+</RelativeLayout>

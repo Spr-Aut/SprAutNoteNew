@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/padding_horizontal_main"
+    android:paddingTop="@dimen/padding_top_main"
+    android:paddingBottom="66dp"
+    android:gravity="center_vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="@drawable/rectangle_stroke"
+        android:paddingTop="5dp"
+        android:paddingBottom="@dimen/padding_vertical_item"
+        android:paddingHorizontal="@dimen/padding_horizontal_item"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:id="@+id/LinearLayout_batch_add"
+            android:layout_marginVertical="50dp"
+            >
+
+            <EditText
+                android:id="@+id/edit_batch_add"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:background="@null"
+                android:paddingVertical="10dp"
+                style="@style/TextStyleEvent"
+                android:hint="请输入批量添加的内容"
+                />
+            <View
+                android:layout_width="250dp"
+                android:layout_height="1dp"
+                android:background="@color/gray_line"
+                />
+
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            >
+            <Button
+                android:id="@+id/btn_batch_add_cancel"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="50dp"
+                android:background="@drawable/rectangle_stroke"
+                android:layout_marginRight="5dp"
+                android:text="取消"
+                />
+            <Button
+                android:id="@+id/btn_batch_add_confirm"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="50dp"
+                android:background="@drawable/rectangle_solid"
+                android:layout_marginLeft="5dp"
+                android:text="添加"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

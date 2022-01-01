@@ -28,6 +28,7 @@
     <color name="card_bg">#ffffff</color>
     <color name="dialog_bg">#f5c342</color>
     <color name="button_bg">#f6ca45</color>
+    <color name="button_bg_pressed">#f5b923</color>
     <color name="main_typeface">#FF000000</color>
 
 </resources>

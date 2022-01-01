@@ -17,6 +17,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".AddEdit.AddActivity"></activity>
+        <activity android:name=".AddEdit.EditActivity"></activity>
+        <activity android:name=".AddEdit.BatchAddActivity"></activity>
+        <activity android:name=".Image.ImageActivity"></activity>
+        <activity android:name=".SearchActivity"></activity>
+        <activity android:name="com.lling.photopicker.PhotoPickerActivity"></activity>
     </application>
 
 </manifest>
