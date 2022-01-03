@@ -184,7 +184,9 @@ public class AddActivity extends AppCompatActivity {
                 Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
                 vibrator.vibrate(VibrationEffect.EFFECT_CLICK);
 
-                finish();
+                Intent intent=new Intent(AddActivity.this, MainActivity.class);
+                startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(AddActivity.this).toBundle());
+                //finish();
             }
         });
 

@@ -200,7 +200,9 @@ public class EditActivity extends AppCompatActivity {
                 Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
                 vibrator.vibrate(VibrationEffect.EFFECT_CLICK);
 
-                finish();
+                Intent intent=new Intent(EditActivity.this, MainActivity.class);
+                startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(EditActivity.this).toBundle());
+                //finish();
             }
         });
 
