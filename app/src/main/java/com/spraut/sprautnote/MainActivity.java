@@ -12,7 +12,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.transition.ChangeBounds;
+import android.transition.ChangeClipBounds;
+import android.transition.ChangeImageTransform;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.transition.Transition;
 import android.util.Pair;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -21,6 +28,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.hw.ycshareelement.YcShareElement;
 import com.spraut.sprautnote.Adapter.MyAdapter;
 import com.spraut.sprautnote.AddEdit.AddActivity;
 import com.spraut.sprautnote.AddEdit.BatchAddActivity;
@@ -45,7 +53,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
 
         //适配MIUI，沉浸小横条和状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -87,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
                 ActivityOptions activityOptions=ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,pairAdd);
                 Intent intent=new Intent(MainActivity.this, AddActivity.class);
                 startActivity(intent,activityOptions.toBundle());
+                /*Intent intent=new Intent(MainActivity.this,AddActivity.class);
+                startActivity(intent);*/
+
 
 
             }

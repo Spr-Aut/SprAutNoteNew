@@ -2,7 +2,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/widget_margin"
-    android:theme="@style/ThemeOverlay.SprAutNote.AppWidgetContainer">
+    android:theme="@style/ThemeOverlay.SprAutNote.AppWidgetContainer"
+    android:id="@+id/widget_single_object42"
+    >
     <RelativeLayout
         android:layout_width="948px"
         android:layout_height="450px"
@@ -23,7 +25,7 @@
                     android:id="@+id/tv_widget_object"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="推送"
+                    android:text="标题"
                     style="@style/TextStyleObject"
                     android:layout_alignParentTop="true"
                     />
@@ -44,7 +46,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="2"
                 android:gravity="center_vertical"
-                android:text="内容做期中考试相关的"
+                android:text="内容"
                 style="@style/TextStyleEvent"
                 android:layout_marginTop="10dp"
                 />
@@ -54,7 +56,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="bottom"
-                android:text="2021年11月2日"
+                android:text="2022年1月3日"
                 style="@style/TextStyleTime"
                 />
         </LinearLayout>

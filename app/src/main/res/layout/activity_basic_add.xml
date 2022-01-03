@@ -2,11 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:paddingHorizontal="@dimen/padding_horizontal_main"
     android:paddingTop="@dimen/padding_top_main"
-    android:background="@color/main_bg"
-    >
+    android:background="@color/main_bg">
 
 
     <ImageView
@@ -17,133 +16,142 @@
         android:layout_marginBottom="@dimen/padding_vertical_item"
         />
 
-
-
-    <LinearLayout
-        android:layout_below="@+id/iv_photo"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_basic_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:background="@drawable/rectangle_stroke"
-        android:paddingTop="5dp"
-        android:paddingBottom="@dimen/padding_vertical_item"
-        android:paddingHorizontal="@dimen/padding_horizontal_item"
+        android:layout_marginHorizontal="@dimen/padding_horizontal_main"
+        android:elevation="4dp"
+        app:cardCornerRadius="@dimen/rectangel_radius"
         >
         <LinearLayout
+            android:layout_below="@+id/iv_photo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center_horizontal"
-            android:id="@+id/LinearLayout_edit_msg"
+            android:paddingTop="25dp"
+            android:paddingBottom="@dimen/padding_vertical_item"
+            android:paddingHorizontal="@dimen/padding_horizontal_item"
             >
-            <EditText
-                android:id="@+id/edit_object"
-                android:layout_width="240dp"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:singleLine="true"
-                android:background="@null"
-                android:layout_marginVertical="10dp"
-                style="@style/TextStyleObject"
-                android:hint="请输入标题"
-
-                >
-            </EditText>
-            <View
-                android:layout_width="250dp"
-                android:layout_height="1dp"
-                android:background="@color/gray_line"
-                />
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_vertical_item"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:id="@+id/LinearLayout_edit_msg"
                 >
                 <EditText
-                    android:id="@+id/edit_event"
+                    android:id="@+id/edit_object"
                     android:layout_width="240dp"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
                     android:gravity="center_horizontal"
+                    android:singleLine="true"
                     android:background="@null"
                     android:layout_marginVertical="10dp"
-                    style="@style/TextStyleEvent"
-                    android:hint="请输入内容"
+                    style="@style/TextStyleObject"
+                    android:hint="请输入标题"
+
+                    >
+                </EditText>
+                <View
+                    android:layout_width="250dp"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_line"
                     />
-                <Button
-                    android:id="@+id/btn_photo_picker"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:background="@mipmap/photo_album"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="10dp"
-                    />
-            </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_vertical_item"
+                    >
+                    <EditText
+                        android:id="@+id/edit_event"
+                        android:layout_width="240dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center_horizontal"
+                        android:background="@null"
+                        android:layout_marginVertical="10dp"
+                        style="@style/TextStyleEvent"
+                        android:hint="请输入内容"
+                        />
+                    <Button
+                        android:id="@+id/btn_photo_picker"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:background="@mipmap/photo_album"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        />
+                </RelativeLayout>
 
 
-            <View
-                android:layout_width="250dp"
-                android:layout_height="1dp"
-                android:background="@color/gray_line"
-                />
+                <View
+                    android:layout_width="250dp"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_line"
+                    />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="@dimen/padding_vertical_item"
+                    >
+                    <TextView
+                        android:id="@+id/edit_time"
+                        android:layout_width="250dp"
+                        android:hint="点击右侧日历选择时间"
+                        style="@style/TextStyleTime"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        />
+                    <Button
+                        android:id="@+id/btn_datepicker"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@mipmap/calendar"
+                        />
+                </RelativeLayout>
+            </LinearLayout>
+
+
+
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:layout_marginTop="@dimen/padding_vertical_item"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
                 >
-                <TextView
-                    android:id="@+id/edit_time"
-                    android:layout_width="250dp"
-                    android:hint="点击右侧日历选择时间"
-                    style="@style/TextStyleTime"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
+                <Button
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="30dp"
+                    android:background="@mipmap/cancel"
                     android:layout_centerVertical="true"
-                    android:gravity="center"
+                    android:layout_alignParentLeft="true"
                     />
                 <Button
-                    android:id="@+id/btn_datepicker"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_alignParentRight="true"
+                    android:id="@+id/btn_confirm"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@mipmap/add"
+                    android:layout_marginRight="30dp"
                     android:layout_centerVertical="true"
-                    android:background="@mipmap/calendar"
+                    android:layout_alignParentRight="true"
                     />
+
             </RelativeLayout>
         </LinearLayout>
 
+    </androidx.cardview.widget.CardView>
 
 
-
-        <RelativeLayout
-            android:layout_width="250dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
-            >
-            <Button
-                android:id="@+id/btn_cancel"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginLeft="30dp"
-                android:background="@mipmap/cancel"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                />
-            <Button
-                android:id="@+id/btn_confirm"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@mipmap/add"
-                android:layout_marginRight="30dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                />
-
-        </RelativeLayout>
-    </LinearLayout>
 
 
 

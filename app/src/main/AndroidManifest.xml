@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SprAutNote">
-        <receiver android:name=".widget.FirstWidget"
+
+        <receiver
+            android:name=".widget.WidgetSingleObject22"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -20,7 +22,7 @@
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/first_widget_info" />
+                android:resource="@xml/widget_single_object22_info" />
         </receiver>
 
         <activity

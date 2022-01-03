@@ -7,6 +7,7 @@
     android:id="@+id/LinearLayout_item"
     >
     <androidx.cardview.widget.CardView
+        android:id="@+id/card_item_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/rectangel_radius"
@@ -40,7 +41,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         style="@style/TextStyleObject"
-                        android:text="object"
+                        android:text="标题"
                         />
 
                     <!--剩余时间-->
@@ -62,7 +63,7 @@
                     android:paddingTop="10dp"
                     android:paddingBottom="16dp"
                     style="@style/TextStyleEvent"
-                    android:text="eventjifojwoijfioqnfodnsofwniofjinoewnfodninofwqnf"
+                    android:text="内容"
                     />
 
                 <RelativeLayout

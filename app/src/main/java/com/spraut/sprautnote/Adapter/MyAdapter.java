@@ -7,6 +7,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.transition.Transition;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,14 +17,14 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.spraut.sprautnote.AddEdit.AddActivity;
 import com.spraut.sprautnote.AddEdit.EditActivity;
 import com.spraut.sprautnote.DataBase.Note;
 import com.spraut.sprautnote.DataBase.NoteDbOpenHelper;
 import com.spraut.sprautnote.R;
-import com.spraut.sprautnote.widget.FirstWidget;
+import com.spraut.sprautnote.widget.WidgetSingleObject22;
 
 import java.util.Calendar;
 import java.util.List;
@@ -88,6 +89,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         holder.mTvRemain.setVisibility(View.VISIBLE);
         holder.mIbRemove.setVisibility(View.VISIBLE);
         holder.mVgItem.setVisibility(View.VISIBLE);
+        holder.mCardView.setVisibility(View.VISIBLE);
 
 
         Note note=mBeanList.get(position);
@@ -128,13 +130,19 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 Pair pairTvObject=new Pair<>(holder.mTvObject,"editObject");
                 Pair pairTvEvent=new Pair<>(holder.mTvEvent,"editEvent");
                 Pair pairItem=new Pair<>(holder.mVgItem,"Item");
+                Pair pairCard=new Pair<>(holder.mCardView,"Card");
 
                 Intent intent=new Intent(mContext, EditActivity.class);
                 intent.putExtra("note",note);
-                ActivityOptions activityOptions=ActivityOptions.makeSceneTransitionAnimation((Activity) mContext,pairTvDate);
+                ActivityOptions activityOptions=ActivityOptions.makeSceneTransitionAnimation((Activity) mContext,pairCard);
                 mContext.startActivity(intent,activityOptions.toBundle());
+
+
+
+
             }
         });
+
 
 
 
@@ -176,7 +184,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //                            e.printStackTrace();
                                 } finally {
                                     // 发送更新广播
-                                    Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE", null, mContext, FirstWidget.class);
+                                    Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE", null, mContext, WidgetSingleObject22.class);
                                     intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[]{0});
                                     mContext.sendBroadcast(intent);
                                 }
@@ -221,7 +229,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //                            e.printStackTrace();
                         } finally {
                             // 发送更新广播
-                            Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE", null, mContext, FirstWidget.class);
+                            Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE", null, mContext, WidgetSingleObject22.class);
                             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[]{0});
                             mContext.sendBroadcast(intent);
                         }
@@ -259,6 +267,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView mTvDate;
         ImageButton mIbRemove;
         ViewGroup mVgItem;
+        CardView mCardView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -268,6 +277,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             this.mTvDate=itemView.findViewById(R.id.tv_item_date);
             this.mIbRemove=itemView.findViewById(R.id.remove_item);
             this.mVgItem=itemView.findViewById(R.id.LinearLayout_item);
+            this.mCardView=itemView.findViewById(R.id.card_item_main);
         }
     }
 
@@ -287,4 +297,6 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         d2 = 365 * y2 + y2 / 4 - y2 / 100 + y2 / 400 + (m2 * 306 + 5) / 10 + (day_end - 1);
         return (d2 - d1);
     }
+
+
 }

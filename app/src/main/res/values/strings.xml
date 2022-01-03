@@ -14,15 +14,46 @@
     <string name="about_appinfo">应用信息</string>
     <string name="about_version">版本</string>
     <string name="about_app">关于应用</string>
-    <string name="about_balabala">目前并非最终版本，努力更新中\n不能保证稳定性</string>
+    <string name="about_balabala">目前并非最终版本，努力更新中\n不能保证稳定性\n该应用无需联网，因此您无需担心隐私泄露</string>
     <string name="about_developer">开发者</string>
     <string name="about_me">关于我</string>
     <string name="about_loc">SprAut</string>
     <string name="about_email">邮箱</string>
-    <string name="about_email2">1493706520@qq.com</string>
+    <string name="about_email2">1493706520@qq.com\nff1493706520@163.com</string>
 
-    <string name="version">v0.9</string>
-    <string name="update_log">更新日志</string>
+
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+
+    <string name="update_log">更新日志</string>
+    <string name="update_detail">
+        \n
+        v0.0 基础功能全部实现\n
+        \n
+        v0.1 更换了大量UI\n
+        \n
+        v0.1.1 修复了连续删除Item会导致数据错乱以及崩溃的问题\n
+        \n
+        v0.2 修改多处界面UI，修复了状态栏的显示问题，暂时弃用SplashActivity\n
+        \n
+        v0.2.1 更换了App图标和名字\n
+        \n
+        v0.2.2 列表按照截至时间升序排序\n
+        \n
+        v0.2.3 修复了时间排序错误的问题，增加了批量添加的功能\n
+        \n
+        v0.3 新增搜索功能；更改了批量添加已经应用信息的入口；修复了主页面顶部时间不更新的问题；修复了按时间排序的遗留问题\n
+        \n
+        v0.3.1 修复了倒计时颜色显示错误的问题\n
+        \n
+        v0.4 新增添加图片的功能（目前只能添加一张）；新增适配深色模式；修改了部分图标；修改了批量添加的入口（改为长按添加按钮）\n
+        \n
+        v0.4.1 适配Android S\n
+        \n
+        v0.5 新增桌面小部件\n
+        \n
+        v0.5.1 小部件动画的兼容性存在问题，故暂时退回API 30；修改了小部件样式，由4×2改为2×2\n
+        \n
+    </string>
+    <string name="version">v0.5.1</string>
 </resources>

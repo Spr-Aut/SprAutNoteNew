@@ -5,13 +5,14 @@ import android.app.DatePickerDialog;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
-import android.graphics.RenderEffect;
-import android.graphics.Shader;
+
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Pair;
 import android.view.View;
 import android.view.Window;
@@ -26,12 +27,15 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.hw.ycshareelement.YcShareElement;
+import com.hw.ycshareelement.transition.IShareElements;
+import com.hw.ycshareelement.transition.ShareElementInfo;
 import com.lling.photopicker.PhotoPickerActivity;
 import com.spraut.sprautnote.DataBase.NoteDbOpenHelper;
 import com.spraut.sprautnote.Image.ImageActivity;
 import com.spraut.sprautnote.R;
 import com.spraut.sprautnote.DataBase.Note;
-import com.spraut.sprautnote.widget.FirstWidget;
+import com.spraut.sprautnote.widget.WidgetSingleObject22;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -57,6 +61,8 @@ public class AddActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basic_add);
+
+
 
         //适配MIUI，沉浸小横条和状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -155,7 +161,7 @@ public class AddActivity extends AppCompatActivity {
 //                            e.printStackTrace();
                         } finally {
                             // 发送更新广播
-                            Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE", null, AddActivity.this, FirstWidget.class);
+                            Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE", null, AddActivity.this, WidgetSingleObject22.class);
                             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[]{0});
                             sendBroadcast(intent);
                         }

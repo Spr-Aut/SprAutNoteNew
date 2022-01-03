@@ -1,5 +1,6 @@
 package com.spraut.sprautnote.widget;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -8,9 +9,9 @@ import android.graphics.Color;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-import com.spraut.sprautnote.Adapter.MyAdapter;
 import com.spraut.sprautnote.DataBase.Note;
 import com.spraut.sprautnote.DataBase.NoteDbOpenHelper;
+import com.spraut.sprautnote.MainActivity;
 import com.spraut.sprautnote.R;
 
 import java.util.Calendar;
@@ -22,14 +23,19 @@ import java.util.Set;
 /**
  * Implementation of App Widget functionality.
  */
-public class FirstWidget extends AppWidgetProvider {
+public class WidgetSingleObject22 extends AppWidgetProvider {
     private static Set idsSet=new HashSet();
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
         // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.first_widget);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_single_object22);
+        //点击事件
+        Intent intentClick=new Intent(context,MainActivity.class);
+        PendingIntent pendingIntent=PendingIntent.getActivity(context,appWidgetId,intentClick,PendingIntent.FLAG_UPDATE_CURRENT);
+        views.setOnClickPendingIntent(R.id.widget_single_object22,pendingIntent);
+
         NoteDbOpenHelper noteDbOpenHelper=new NoteDbOpenHelper(context);
         List<Note> mNote=noteDbOpenHelper.queryAllFromDb();
         if (mNote.size()>0){
@@ -43,31 +49,37 @@ public class FirstWidget extends AppWidgetProvider {
             int day_aim=mNote.get(0).getDay_end();
 
             int remain= day_minus(year,month,day,year_aim,month_aim,day_aim);
-            views.setTextViewText(R.id.tv_widget_object, mNote.get(0).getObject()+"");
-            views.setTextViewText(R.id.tv_widget_event, mNote.get(0).getEvent()+"");
-            views.setTextViewText(R.id.tv_widget_date, year_aim+"年"+month_aim+"月"+day_aim+"日");
-            views.setTextViewText(R.id.tv_widget_remain,mNote.get(0).getDate_end()+"");
+            views.setTextViewText(R.id.tv_widget_object22, mNote.get(0).getObject()+"");
+            views.setTextViewText(R.id.tv_widget_event22, mNote.get(0).getEvent()+"");
+            views.setTextViewText(R.id.tv_widget_date22, month_aim+"月"+day_aim+"日");
+            views.setTextViewText(R.id.tv_widget_remain22,mNote.get(0).getDate_end()+"");
+
+            //设置剩余时间
             if (remain>0){
-                views.setTextViewText(R.id.tv_widget_remain,remain+"天后");
+                views.setTextViewText(R.id.tv_widget_remain22,remain+"天后");
             }else if (remain==0){
-                views.setTextViewText(R.id.tv_widget_remain,"今天");
+                views.setTextViewText(R.id.tv_widget_remain22,"今天");
             }else if (remain<0){
-                views.setTextViewText(R.id.tv_widget_remain,-remain+"天前");
+                views.setTextViewText(R.id.tv_widget_remain22,-remain+"天前");
             }
             if(remain<=3&&remain>=0){
-                views.setTextColor(R.id.tv_widget_remain,Color.argb(255,255,0,0));
+                views.setTextColor(R.id.tv_widget_remain22,Color.argb(255,255,0,0));
             }else if (remain<0){
-                views.setTextColor(R.id.tv_widget_remain,Color.argb(255,82,136,245));
+                views.setTextColor(R.id.tv_widget_remain22,Color.argb(255,82,136,245));
             }else if (remain>3){
-                views.setTextColor(R.id.tv_widget_remain,Color.argb(255,117,117,117));
+                views.setTextColor(R.id.tv_widget_remain22,Color.argb(255,117,117,117));
             }
+
+
+
 
             // Instruct the widget manager to update the widget
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }else {
-            views.setTextViewText(R.id.tv_widget_object, "");
-            views.setTextViewText(R.id.tv_widget_event, "");
-            views.setTextViewText(R.id.tv_widget_date, "");
+            views.setTextViewText(R.id.tv_widget_object22, "");
+            views.setTextViewText(R.id.tv_widget_event22, "");
+            views.setTextViewText(R.id.tv_widget_date22, "");
+
 
             // Instruct the widget manager to update the widget
             appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -88,6 +100,7 @@ public class FirstWidget extends AppWidgetProvider {
         while (iterator.hasNext()){
             appID=((Integer)iterator.next()).intValue();
             updateAppWidget(context,appWidgetManager,appID);
+            Log.i("TAG","updage99999999999999999999999999999");
         }
     }
 
@@ -118,7 +131,7 @@ public class FirstWidget extends AppWidgetProvider {
         Log.i("TAG", "onReceive : action = " + intent.getAction());
         if (intent.getAction().equals("android.appwidget.action.APPWIDGET_UPDATE")){
 
-            Log.i("TAG", "111111111111111i got it");
+            Log.i("TAG", "got it");
         }
         /*if (intent.getIntExtra("test",0)==1){
 

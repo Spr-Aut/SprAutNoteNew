@@ -92,95 +92,17 @@
             android:text="@string/update_log"/>
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
+            android:layout_height="wrap_content"
+            >
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="v0.0 基础功能全部实现"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="v0.1 更换了大量UI"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="v0.2 修复了连续删除Item会导致数据错乱以及崩溃的问题"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="v0.3 修改多处界面UI，修复了状态栏的显示问题，暂时弃用SplahActivity"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="v0.4 更换了App图标和名字"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="v0.5 列表按照截至时间升序排序"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="v0.6 修复了时间排序错误的问题，增加了批量添加的功能"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="v0.7 新增搜索功能；更改了批量添加已经应用信息的入口；修复了主页面顶部时间不更新的问题；修复了按时间排序的遗留问题"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="v0.7.1 修复了倒计时颜色显示错误的问题"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="v0.8 新增添加图片的功能（目前只能添加一张）；新增适配深色模式；修改了部分图标；修改了批量添加的入口（改为长按添加按钮）"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="v0.85 适配Android S"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="v0.9 新增桌面小部件"
-                    />
-
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/padding_bottom_main"/>
-
-            </LinearLayout>
-
+                android:layout_height="wrap_content"
+                android:text="@string/update_detail"
+                />
         </ScrollView>
+
+
+
 
 
     </LinearLayout>

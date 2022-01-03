@@ -24,20 +24,26 @@
     </style>
     <!--对象-->
     <style name="TextStyleObject">
-        <item name="android:textColor">@color/main_typeface</item>
+        <item name="android:textColor">@color/widget_typeface_main</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">24sp</item>
     </style>
     <!--事件-->
     <style name="TextStyleEvent">
-
+        <item name="android:textColor">@color/widget_typeface_second</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">18sp</item>
     </style>
     <!--剩余时间-->
     <style name="TextStyleRemainTime">
+        <item name="android:textColor">@color/widget_typeface_second</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">16sp</item>
+    </style>
+    <!--目标时间-->
+    <style name="TextStyleTime">
+        <item name="android:textColor">@color/widget_typeface_third</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="TextStyle26">
@@ -48,10 +54,33 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="TextStyleTime">
-
-        <item name="android:textSize">14sp</item>
+    <!--2*2-->
+    <!--对象-->
+    <style name="TextStyleObject22">
+        <item name="android:textColor">@color/widget_typeface_main</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
     </style>
+    <!--事件-->
+    <style name="TextStyleEvent22">
+        <item name="android:textColor">@color/widget_typeface_second</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <!--剩余时间-->
+    <style name="TextStyleRemainTime22">
+        <item name="android:textColor">@color/widget_typeface_second</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <!--目标时间-->
+    <style name="TextStyleTime22">
+        <item name="android:textColor">@color/widget_typeface_third</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+
 
 
 </resources>

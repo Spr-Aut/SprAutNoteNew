@@ -25,13 +25,18 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
+import com.hw.ycshareelement.YcShareElement;
+import com.hw.ycshareelement.transition.IShareElements;
+import com.hw.ycshareelement.transition.ShareElementInfo;
+import com.hw.ycshareelement.transition.TextViewStateSaver;
 import com.lling.photopicker.PhotoPickerActivity;
 import com.spraut.sprautnote.DataBase.Note;
 import com.spraut.sprautnote.DataBase.NoteDbOpenHelper;
 import com.spraut.sprautnote.Image.ImageActivity;
 import com.spraut.sprautnote.R;
-import com.spraut.sprautnote.widget.FirstWidget;
+import com.spraut.sprautnote.widget.WidgetSingleObject22;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -45,6 +50,7 @@ public class EditActivity extends AppCompatActivity {
     private EditText editObject,editEvent;
     private TextView tvTime;
     private ViewGroup mLinear;
+    private CardView mCardView;
     private int YEAR_SELECTED=2021,MONTH_SELECTED=10,DAY_SELECTED=25;
 
     private static final int PICK_PHOTO = 1;
@@ -80,6 +86,7 @@ public class EditActivity extends AppCompatActivity {
         editObject=findViewById(R.id.edit_object);
         editEvent=findViewById(R.id.edit_event);
         mLinear=findViewById(R.id.LinearLayout_edit_msg);
+        mCardView=findViewById(R.id.card_basic_add);
         photo = findViewById(R.id.iv_photo);
 
 
@@ -159,9 +166,12 @@ public class EditActivity extends AppCompatActivity {
 //                            e.printStackTrace();
                         } finally {
                             // 发送更新广播
-                            Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE", null, EditActivity.this, FirstWidget.class);
+                            Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE", null, EditActivity.this, WidgetSingleObject22.class);
                             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[]{0});
                             sendBroadcast(intent);
+                            Intent intent22 = new Intent("android.appwidget.action.APPWIDGET_UPDATE22", null, EditActivity.this, WidgetSingleObject22.class);
+                            intent22.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[]{0});
+                            sendBroadcast(intent22);
                         }
                     }
                 }.start();
@@ -259,6 +269,8 @@ public class EditActivity extends AppCompatActivity {
             editObject.setTransitionName("editObject");
             editEvent.setTransitionName("editEvent");
             mLinear.setTransitionName("Item");
+            mCardView.setTransitionName("Card");
+
 
         }
         mNoteDbOpenHelper=new NoteDbOpenHelper(this);
