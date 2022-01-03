@@ -3,6 +3,7 @@ package com.spraut.sprautnote.AddEdit;
 import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
 import android.app.Service;
+import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -30,6 +31,7 @@ import com.spraut.sprautnote.DataBase.Note;
 import com.spraut.sprautnote.DataBase.NoteDbOpenHelper;
 import com.spraut.sprautnote.Image.ImageActivity;
 import com.spraut.sprautnote.R;
+import com.spraut.sprautnote.widget.FirstWidget;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -146,6 +148,23 @@ public class EditActivity extends AppCompatActivity {
                 
 
                 finish();
+
+                // 延迟发送更新广播，目的是回到桌面后更新小部件视图
+                new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(800);
+                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+                        } finally {
+                            // 发送更新广播
+                            Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE", null, EditActivity.this, FirstWidget.class);
+                            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[]{0});
+                            sendBroadcast(intent);
+                        }
+                    }
+                }.start();
             }
         });
 

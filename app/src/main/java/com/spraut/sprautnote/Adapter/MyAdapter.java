@@ -3,6 +3,7 @@ package com.spraut.sprautnote.Adapter;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.Dialog;
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,10 +18,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.spraut.sprautnote.AddEdit.AddActivity;
 import com.spraut.sprautnote.AddEdit.EditActivity;
 import com.spraut.sprautnote.DataBase.Note;
 import com.spraut.sprautnote.DataBase.NoteDbOpenHelper;
 import com.spraut.sprautnote.R;
+import com.spraut.sprautnote.widget.FirstWidget;
 
 import java.util.Calendar;
 import java.util.List;
@@ -162,6 +165,23 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             removeData(position);
                         }
                         dialog.dismiss();
+
+                        // 延迟发送更新广播，目的是回到桌面后更新小部件视图
+                        new Thread() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Thread.sleep(800);
+                                } catch (InterruptedException e) {
+//                            e.printStackTrace();
+                                } finally {
+                                    // 发送更新广播
+                                    Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE", null, mContext, FirstWidget.class);
+                                    intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[]{0});
+                                    mContext.sendBroadcast(intent);
+                                }
+                            }
+                        }.start();
                     }
                 });
 
@@ -190,6 +210,23 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 if (row>0){
                     removeData(position);
                 }
+
+                // 延迟发送更新广播，目的是回到桌面后更新小部件视图
+                new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(800);
+                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+                        } finally {
+                            // 发送更新广播
+                            Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE", null, mContext, FirstWidget.class);
+                            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[]{0});
+                            mContext.sendBroadcast(intent);
+                        }
+                    }
+                }.start();
             }
         });
     }
