@@ -18,6 +18,7 @@ import android.transition.ChangeImageTransform;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;

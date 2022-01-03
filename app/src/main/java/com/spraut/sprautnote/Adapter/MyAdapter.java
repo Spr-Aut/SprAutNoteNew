@@ -132,13 +132,15 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 Pair pairItem=new Pair<>(holder.mVgItem,"Item");
                 Pair pairCard=new Pair<>(holder.mCardView,"Card");
 
-                Intent intent=new Intent(mContext, EditActivity.class);
+                /*Intent intent=new Intent(mContext, EditActivity.class);
                 intent.putExtra("note",note);
                 ActivityOptions activityOptions=ActivityOptions.makeSceneTransitionAnimation((Activity) mContext,pairCard);
-                mContext.startActivity(intent,activityOptions.toBundle());
+                mContext.startActivity(intent,activityOptions.toBundle());*/
 
 
-
+                Intent intent=new Intent(mContext,EditActivity.class);
+                intent.putExtra("note",note);
+                mContext.startActivity(intent,ActivityOptions.makeSceneTransitionAnimation((Activity) mContext).toBundle());
 
             }
         });

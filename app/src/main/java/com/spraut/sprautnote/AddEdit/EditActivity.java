@@ -1,5 +1,6 @@
 package com.spraut.sprautnote.AddEdit;
 
+import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
 import android.app.Service;
@@ -11,6 +12,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +40,7 @@ import com.lling.photopicker.PhotoPickerActivity;
 import com.spraut.sprautnote.DataBase.Note;
 import com.spraut.sprautnote.DataBase.NoteDbOpenHelper;
 import com.spraut.sprautnote.Image.ImageActivity;
+import com.spraut.sprautnote.MainActivity;
 import com.spraut.sprautnote.R;
 import com.spraut.sprautnote.widget.WidgetSingleObject22;
 
@@ -65,6 +71,12 @@ public class EditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        Transition slide_top = TransitionInflater.from(this).inflateTransition(android.R.transition.slide_top);
+        Transition slide_bottom=TransitionInflater.from(this).inflateTransition(android.R.transition.slide_bottom);
+        getWindow().setEnterTransition(slide_top);
+        getWindow().setExitTransition(slide_top);
+
         setContentView(R.layout.activity_basic_add);
 
 
@@ -152,9 +164,11 @@ public class EditActivity extends AppCompatActivity {
 
 
                 mNoteDbOpenHelper.updateData(note);
-                
 
-                finish();
+                Intent intent=new Intent(EditActivity.this, MainActivity.class);
+                startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(EditActivity.this).toBundle());
+
+                //finish();
 
                 // 延迟发送更新广播，目的是回到桌面后更新小部件视图
                 new Thread() {

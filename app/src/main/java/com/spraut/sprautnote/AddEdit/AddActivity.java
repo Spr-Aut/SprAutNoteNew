@@ -33,6 +33,7 @@ import com.hw.ycshareelement.transition.ShareElementInfo;
 import com.lling.photopicker.PhotoPickerActivity;
 import com.spraut.sprautnote.DataBase.NoteDbOpenHelper;
 import com.spraut.sprautnote.Image.ImageActivity;
+import com.spraut.sprautnote.MainActivity;
 import com.spraut.sprautnote.R;
 import com.spraut.sprautnote.DataBase.Note;
 import com.spraut.sprautnote.widget.WidgetSingleObject22;
@@ -60,6 +61,10 @@ public class AddActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Transition slide_top = TransitionInflater.from(this).inflateTransition(android.R.transition.slide_top);
+        Transition slide_bottom=TransitionInflater.from(this).inflateTransition(android.R.transition.slide_bottom);
+        getWindow().setEnterTransition(slide_top);
+        getWindow().setExitTransition(slide_top);
         setContentView(R.layout.activity_basic_add);
 
 
@@ -148,8 +153,9 @@ public class AddActivity extends AppCompatActivity {
 
                 mNoteDbOpenHelper.insertData(note);
 
-
-                finish();
+                Intent intent=new Intent(AddActivity.this, MainActivity.class);
+                startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(AddActivity.this).toBundle());
+                //finish();
 
                 // 延迟发送更新广播，目的是回到桌面后更新小部件视图
                 new Thread() {
