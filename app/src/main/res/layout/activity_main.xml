@@ -69,5 +69,14 @@
         >
 
     </androidx.recyclerview.widget.RecyclerView>
+    <com.spraut.sprautnote.RoundShapeBulr
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="39dp"
+        android:layout_marginBottom="54dp"
+        />
+
 
 </RelativeLayout>

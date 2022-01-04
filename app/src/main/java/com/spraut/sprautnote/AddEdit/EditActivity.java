@@ -5,6 +5,7 @@ import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -21,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -165,10 +167,15 @@ public class EditActivity extends Activity {
 
                 mNoteDbOpenHelper.updateData(note);
 
-                Intent intent=new Intent(EditActivity.this, MainActivity.class);
-                startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(EditActivity.this).toBundle());
+                /*Intent intent=new Intent(EditActivity.this, MainActivity.class);
+                startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(EditActivity.this).toBundle());*/
 
-                //finish();
+                //收起软键盘
+                InputMethodManager inputMethodManager = (InputMethodManager)getSystemService( Context.INPUT_METHOD_SERVICE);
+                if (inputMethodManager!=null){
+                    inputMethodManager.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(),0);
+                }
+                finishAfterTransition();
 
                 // 延迟发送更新广播，目的是回到桌面后更新小部件视图
                 new Thread() {
@@ -200,9 +207,15 @@ public class EditActivity extends Activity {
                 Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
                 vibrator.vibrate(VibrationEffect.EFFECT_CLICK);
 
-                Intent intent=new Intent(EditActivity.this, MainActivity.class);
-                startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(EditActivity.this).toBundle());
-                //finish();
+                /*Intent intent=new Intent(EditActivity.this, MainActivity.class);
+                startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(EditActivity.this).toBundle());*/
+
+                //收起软键盘
+                InputMethodManager inputMethodManager = (InputMethodManager)getSystemService( Context.INPUT_METHOD_SERVICE);
+                if (inputMethodManager!=null){
+                    inputMethodManager.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(),0);
+                }
+                finishAfterTransition();
             }
         });
 

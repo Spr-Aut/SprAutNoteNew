@@ -55,6 +55,9 @@
         v0.5.1 小部件动画的兼容性存在问题，故暂时退回API 30；修改了小部件样式，由4×2改为2×2\n
         \n
         v0.5.2 修改部分动画；优化添加小部件时的预览图
+        \n
+        v0.5.3 修复点击取消按钮后，Activity不销毁的问题；优化软键盘的收回动画；新增主界面“添加”按钮的高斯模糊效果
+        \n
     </string>
-    <string name="version">v0.5.2</string>
+    <string name="version">v0.5.3</string>
 </resources>

@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.Service;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
@@ -20,7 +21,9 @@ import android.transition.Fade;
 import android.transition.Slide;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
+import android.util.AttributeSet;
 import android.util.Pair;
+import android.util.Xml;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -28,14 +31,18 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hw.ycshareelement.YcShareElement;
 import com.spraut.sprautnote.Adapter.MyAdapter;
 import com.spraut.sprautnote.AddEdit.AddActivity;
 import com.spraut.sprautnote.AddEdit.BatchAddActivity;
+import com.spraut.sprautnote.Blur.RealtimeBlurView;
 import com.spraut.sprautnote.DataBase.Note;
 import com.spraut.sprautnote.DataBase.NoteDbOpenHelper;
+
+import org.xmlpull.v1.XmlPullParser;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -50,6 +57,7 @@ public class MainActivity extends Activity {
     private ImageView mIvIcon;
     private ImageView mIvSearch;
     private TextView mTvTimeNow;
+
 
     private NoteDbOpenHelper mNoteDbOpenHelper;
     @Override
@@ -101,8 +109,6 @@ public class MainActivity extends Activity {
                 startActivity(intent,activityOptions.toBundle());
                 /*Intent intent=new Intent(MainActivity.this,AddActivity.class);
                 startActivity(intent);*/
-
-
 
             }
         });
