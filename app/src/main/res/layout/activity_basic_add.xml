@@ -8,6 +8,7 @@
     android:background="@color/main_bg">
 
 
+
     <ImageView
         android:id="@+id/iv_photo"
         android:layout_width="200dp"

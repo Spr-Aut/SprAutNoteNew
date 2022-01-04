@@ -49,7 +49,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class EditActivity extends AppCompatActivity {
+public class EditActivity extends Activity {
     private Note note;
 
     private Button mBtnDatePicker,mBtnCancel,mBtnConfirm;

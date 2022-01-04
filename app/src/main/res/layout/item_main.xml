@@ -23,6 +23,7 @@
             android:paddingBottom="@dimen/padding_vertical_item"
             android:paddingHorizontal="@dimen/padding_horizontal_item"
             android:background="@color/card_bg"
+
             >
 
             <LinearLayout
