@@ -2,6 +2,7 @@ package com.spraut.sprautnote.AddEdit;
 
 import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
@@ -15,6 +16,7 @@ import android.os.Vibrator;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.util.Pair;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -286,16 +288,56 @@ public class AddActivity extends AppCompatActivity {
         s=matcher.replaceAll(",");
         String[] as= s.split(",");*/
 
-        photo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Pair pairAdd = new Pair<>(photo, "image");
-                ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(AddActivity.this, pairAdd);
-                Intent intent = new Intent(AddActivity.this, ImageActivity.class);
-                intent.putExtra(ImageActivity.EXTRA_IMAGE_URL, Url);
-                startActivity(intent, activityOptions.toBundle());
-            }
-        });
+
+
+        /*对图片的操作*/
+        if (Url!=null){
+            /*点击查看大图*/
+            photo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Pair pairAdd = new Pair<>(photo, "image");
+                    ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(AddActivity.this, pairAdd);
+                    Intent intent = new Intent(AddActivity.this, ImageActivity.class);
+                    intent.putExtra(ImageActivity.EXTRA_IMAGE_URL, Url);
+                    startActivity(intent, activityOptions.toBundle());
+                }
+            });
+
+            /*长按图片删除图片*/
+            photo.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    // 弹出弹窗
+                    Dialog dialog = new Dialog(AddActivity.this, android.R.style.ThemeOverlay_Material_Dialog_Alert);
+                    LayoutInflater layoutInflater=LayoutInflater.from(AddActivity.this);
+                    View dialogView=layoutInflater.inflate(R.layout.add_image_delete_dialog_layout,null);
+
+                    //dialog背景
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    WindowManager.LayoutParams layoutParams=dialog.getWindow().getAttributes();
+                    layoutParams.dimAmount=0.0f;
+                    dialog.getWindow().setAttributes(layoutParams);
+
+                    TextView tvDelete = dialogView.findViewById(R.id.tv_delete_image);
+
+                    //点击删除
+                    tvDelete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Url=null;
+                            photo.setImageURI(null);
+                            dialog.dismiss();
+                        }
+                    });
+
+                    dialog.setContentView(dialogView);
+                    dialog.setCanceledOnTouchOutside(true);
+                    dialog.show();
+                    return true;
+                }
+            });
+        }
     }
 
     private void showDatePickDlg() {

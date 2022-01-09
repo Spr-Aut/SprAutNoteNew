@@ -3,6 +3,7 @@ package com.spraut.sprautnote.AddEdit;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
@@ -18,6 +19,7 @@ import android.transition.Fade;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.util.Pair;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -68,6 +70,7 @@ public class EditActivity extends Activity {
     private String Url = null;
 
 
+
     private NoteDbOpenHelper mNoteDbOpenHelper;
 
     @Override
@@ -101,26 +104,12 @@ public class EditActivity extends Activity {
         editEvent=findViewById(R.id.edit_event);
         mLinear=findViewById(R.id.LinearLayout_edit_msg);
         mCardView=findViewById(R.id.card_basic_add);
+        mBtnAddPhoto=findViewById(R.id.btn_photo_picker);
         photo = findViewById(R.id.iv_photo);
 
 
+
         initData();
-
-        /*点击查看大图*/
-        if (Url!=null){
-            photo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Pair pairAdd = new Pair<>(photo, "image");
-                    ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(EditActivity.this, pairAdd);
-                    Intent intent = new Intent(EditActivity.this, ImageActivity.class);
-                    intent.putExtra(ImageActivity.EXTRA_IMAGE_URL, Url);
-                    startActivity(intent, activityOptions.toBundle());
-                }
-            });
-        }
-
-
 
 
         //日历按钮
@@ -221,7 +210,6 @@ public class EditActivity extends Activity {
 
 
         /*“选择图片”点击事件*/
-        mBtnAddPhoto=findViewById(R.id.btn_photo_picker);
         mBtnAddPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -240,6 +228,56 @@ public class EditActivity extends Activity {
                 startActivityForResult(intent, PICK_PHOTO);
             }
         });
+
+
+        /*对图片的操作*/
+        if (Url!=null){
+            /*点击查看大图*/
+            photo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Pair pairAdd = new Pair<>(photo, "image");
+                    ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(EditActivity.this, pairAdd);
+                    Intent intent = new Intent(EditActivity.this, ImageActivity.class);
+                    intent.putExtra(ImageActivity.EXTRA_IMAGE_URL, Url);
+                    startActivity(intent, activityOptions.toBundle());
+                }
+            });
+
+            /*长按图片删除图片*/
+            photo.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    // 弹出弹窗
+                    Dialog dialog = new Dialog(EditActivity.this, android.R.style.ThemeOverlay_Material_Dialog_Alert);
+                    LayoutInflater layoutInflater=LayoutInflater.from(EditActivity.this);
+                    View dialogView=layoutInflater.inflate(R.layout.add_image_delete_dialog_layout,null);
+
+                    //dialog背景
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    WindowManager.LayoutParams layoutParams=dialog.getWindow().getAttributes();
+                    layoutParams.dimAmount=0.0f;
+                    dialog.getWindow().setAttributes(layoutParams);
+
+                    TextView tvDelete = dialogView.findViewById(R.id.tv_delete_image);
+
+                    //点击删除
+                    tvDelete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Url=null;
+                            photo.setImageURI(null);
+                            dialog.dismiss();
+                        }
+                    });
+
+                    dialog.setContentView(dialogView);
+                    dialog.setCanceledOnTouchOutside(true);
+                    dialog.show();
+                    return true;
+                }
+            });
+        }
     }
     //onCreate 结束
 

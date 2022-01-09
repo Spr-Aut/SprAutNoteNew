@@ -7,42 +7,67 @@
     tools:context=".MainActivity"
     android:background="@color/main_bg"
     >
+
+    <!--列表-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingTop="80dp"
+        android:paddingBottom="@dimen/padding_bottom_main"
+        >
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <com.spraut.sprautnote.RoundShapeBulr
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="39dp"
+        android:layout_marginBottom="54dp"
+        app:realtimeOverlayColor="#00ffffff"
+        app:realtimeBlurRadius="20dp"
+        />
+    <com.spraut.sprautnote.Blur.RealtimeBlurView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:realtimeOverlayColor="#00ffffff"
+        app:realtimeBlurRadius="30dp"
+        />
+
     <!--顶部标题栏-->
     <RelativeLayout
         android:id="@+id/bar_main_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/padding_top_main"
-        android:paddingBottom="10dp"
+
         >
         <!--顶部应用图标-->
         <ImageView
             android:id="@+id/iv_bar_main_top_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/app_icon_64"
             android:paddingHorizontal="@dimen/padding_horizontal_bar_main_top"
-            />
+            android:src="@mipmap/app_icon_64" />
         <!--顶部时间-->
         <TextView
             android:id="@+id/tv_bar_main_top_time"
+            style="@style/TextStyleBarMainTop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            style="@style/TextStyleBarMainTop"
-            android:text="2022年1月1日"
-            />
+            android:text="2022年1月1日" />
         <!--顶部搜索按钮-->
         <ImageView
             android:id="@+id/iv_bar_main_top_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_search"
             android:layout_alignParentRight="true"
             android:paddingHorizontal="@dimen/padding_horizontal_bar_main_top"
-            />
+            android:src="@mipmap/icon_search" />
     </RelativeLayout>
-
     <!--“添加”按钮-->
 
     <Button
@@ -60,23 +85,7 @@
 
 
 
-    <!--列表-->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rc_main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/bar_main_top"
-        >
 
-    </androidx.recyclerview.widget.RecyclerView>
-    <com.spraut.sprautnote.RoundShapeBulr
-        android:layout_width="52dp"
-        android:layout_height="52dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="39dp"
-        android:layout_marginBottom="54dp"
-        />
 
 
 </RelativeLayout>

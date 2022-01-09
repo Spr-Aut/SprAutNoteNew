@@ -38,21 +38,62 @@ public class WidgetSingleObject22 extends AppWidgetProvider {
 
         NoteDbOpenHelper noteDbOpenHelper=new NoteDbOpenHelper(context);
         List<Note> mNote=noteDbOpenHelper.queryAllFromDb();
-        if (mNote.size()>0){
-            Calendar mcalendar = Calendar.getInstance();     //  获取当前时间    —   年、月、日
-            int year = mcalendar.get(Calendar.YEAR);         //  得到当前年
-            int month = mcalendar.get(Calendar.MONTH) + 1 ;       //  得到当前月
-            final int day = mcalendar.get(Calendar.DAY_OF_MONTH);  //  得到当前日
 
-            int year_aim=mNote.get(0).getYear_end();
-            int month_aim=mNote.get(0).getMonth_end();
-            int day_aim=mNote.get(0).getDay_end();
+        Calendar mcalendar = Calendar.getInstance();     //  获取当前时间    —   年、月、日
+        int year = mcalendar.get(Calendar.YEAR);         //  得到当前年
+        int month = mcalendar.get(Calendar.MONTH) + 1 ;       //  得到当前月
+        int day = mcalendar.get(Calendar.DAY_OF_MONTH);  //  得到当前日
 
-            int remain= day_minus(year,month,day,year_aim,month_aim,day_aim);
-            views.setTextViewText(R.id.tv_widget_object22, mNote.get(0).getObject()+"");
-            views.setTextViewText(R.id.tv_widget_event22, mNote.get(0).getEvent()+"");
+        int noteSize=mNote.size();
+        if (noteSize>0){
+            String date_now_string="";
+            if ((month<10)&&(day>=10)){
+                date_now_string=(year+"")+("0"+month+"")+(day+"");
+            }else if ((day<10)&&(month>=10)){
+                date_now_string=(year+"")+(month+"")+("0"+day+"");
+            }else if ((month<10)&&(day<10)){
+                date_now_string=(year+"")+("0"+month+"")+("0"+day+"");
+            }else {
+                date_now_string=(year+"")+(month+"")+(day+"");
+            }
+            int date_now=Integer.parseInt(date_now_string);
+
+            int noteNum=0;//显示第noteNum个note
+            int noteOverdueCounter=0;//过期事件计数器
+            int noteTodoCounter=0;//未来事件计数器
+
+            for (noteNum=0;noteNum<noteSize;noteNum++){
+                if (date_now>mNote.get(noteNum).getDate_end()){
+                    noteOverdueCounter++;
+                }else {
+                    noteTodoCounter++;
+                }
+            }
+
+            if (noteOverdueCounter>0){
+                views.setTextViewText(R.id.tv_widget_overduecounter22,noteOverdueCounter+"");
+                views.setTextColor(R.id.tv_widget_overduecounter22,Color.argb(255,82,136,245));
+            }else {
+                views.setTextViewText(R.id.tv_widget_overduecounter22,"");//overduecounter
+            }
+
+            int noteTodoNum=0;
+            if (noteTodoCounter>0){
+                noteTodoNum=noteOverdueCounter;
+            }else {
+                noteTodoNum=noteOverdueCounter-1;
+            }
+
+            int remain=0;//事件剩余时间（日）
+            int year_aim=0,month_aim=0,day_aim=0;//事件目标日期
+            year_aim=mNote.get(noteTodoNum).getYear_end();
+            month_aim=mNote.get(noteTodoNum).getMonth_end();
+            day_aim=mNote.get(noteTodoNum).getDay_end();
+            remain= day_minus(year,month,day,year_aim,month_aim,day_aim);
+
+            views.setTextViewText(R.id.tv_widget_object22, mNote.get(noteTodoNum).getObject()+"");
+            views.setTextViewText(R.id.tv_widget_event22, mNote.get(noteTodoNum).getEvent()+"");
             views.setTextViewText(R.id.tv_widget_date22, month_aim+"月"+day_aim+"日");
-            views.setTextViewText(R.id.tv_widget_remain22,mNote.get(0).getDate_end()+"");
 
             //设置剩余时间
             if (remain>0){
@@ -70,17 +111,14 @@ public class WidgetSingleObject22 extends AppWidgetProvider {
                 views.setTextColor(R.id.tv_widget_remain22,Color.argb(255,117,117,117));
             }
 
-
-
-
             // Instruct the widget manager to update the widget
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }else {
-            views.setTextViewText(R.id.tv_widget_object22, "");
-            views.setTextViewText(R.id.tv_widget_event22, "");
-            views.setTextViewText(R.id.tv_widget_date22, "");
-
-
+            views.setTextViewText(R.id.tv_widget_object22, "速记");//object
+            views.setTextViewText(R.id.tv_widget_event22, "点击添加事件");//event
+            views.setTextViewText(R.id.tv_widget_date22, month+"月"+day+"日");//date
+            views.setTextViewText(R.id.tv_widget_remain22,"");//remain
+            views.setTextViewText(R.id.tv_widget_overduecounter22,"");//overduecounter
             // Instruct the widget manager to update the widget
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
