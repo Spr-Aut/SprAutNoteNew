@@ -7,6 +7,21 @@
     tools:context=".SearchActivity"
     android:background="@color/main_bg"
     >
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="90dp"
+        android:paddingBottom="@dimen/padding_bottom_main"
+        android:clipToPadding="false"
+        />
+    <com.spraut.sprautnote.Blur.RealtimeBlurView
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        style="@style/BlurMain"
+        />
+
     <RelativeLayout
         android:id="@+id/relative_search_top"
         android:layout_width="match_parent"
@@ -35,13 +50,6 @@
     </RelativeLayout>
 
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rc_search"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/relative_search_top"
-        />
 
 
 

@@ -20,10 +20,12 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.spraut.sprautnote.AddEdit.AddActivity;
 import com.spraut.sprautnote.AddEdit.EditActivity;
 import com.spraut.sprautnote.DataBase.Note;
 import com.spraut.sprautnote.DataBase.NoteDbOpenHelper;
 import com.spraut.sprautnote.R;
+import com.spraut.sprautnote.widget.SendBroadcast;
 import com.spraut.sprautnote.widget.WidgetSingleObject22;
 
 import java.util.Calendar;
@@ -90,6 +92,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         holder.mIbRemove.setVisibility(View.VISIBLE);
         holder.mVgItem.setVisibility(View.VISIBLE);
         holder.mCardView.setVisibility(View.VISIBLE);
+        holder.mCardViewSlide.setVisibility(View.VISIBLE);
 
 
         Note note=mBeanList.get(position);
@@ -119,9 +122,11 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }else if (remain>3){
             holder.mTvRemain.setTextColor(Color.argb(255,117,117,117));
         }
+
+
         //#5288F5
         //点击整个Item
-        holder.mVgItem.setOnClickListener(new View.OnClickListener() {
+        holder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -145,11 +150,8 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
         });
 
-
-
-
         //长按整个Item
-        holder.mVgItem.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.mCardView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
 
@@ -170,28 +172,9 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 tvDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int row = mNoteDbOpenHelper.deleteFromDbById(note.getId()+"");
-                        if (row > 0) {
-                            removeData(position);
-                        }
+                        deletItem(note,position);
                         dialog.dismiss();
-
-                        // 延迟发送更新广播，目的是回到桌面后更新小部件视图
-                        new Thread() {
-                            @Override
-                            public void run() {
-                                try {
-                                    Thread.sleep(800);
-                                } catch (InterruptedException e) {
-//                            e.printStackTrace();
-                                } finally {
-                                    // 发送更新广播
-                                    Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE", null, mContext, WidgetSingleObject22.class);
-                                    intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[]{0});
-                                    mContext.sendBroadcast(intent);
-                                }
-                            }
-                        }.start();
+                        new SendBroadcast().SendBroaCcast(mContext);
                     }
                 });
 
@@ -216,30 +199,22 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         holder.mIbRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int row=mNoteDbOpenHelper.deleteFromDbById(note.getId()+"");
-                if (row>0){
-                    removeData(position);
-                }
-
-                // 延迟发送更新广播，目的是回到桌面后更新小部件视图
-                new Thread() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(800);
-                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-                        } finally {
-                            // 发送更新广播
-                            Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE", null, mContext, WidgetSingleObject22.class);
-                            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[]{0});
-                            mContext.sendBroadcast(intent);
-                        }
-                    }
-                }.start();
+                deletItem(note,position);
+                new SendBroadcast().SendBroaCcast(mContext);
             }
         });
-    }
+
+        //点击侧滑后的删除
+        holder.mCardViewSlide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deletItem(note,position);
+                new SendBroadcast().SendBroaCcast(mContext);
+            }
+        });
+
+
+    }//bindMyViewHolder
 
     @Override
     public int getItemCount() {
@@ -252,6 +227,14 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     //删除Item
+    private void deletItem(Note note,int position){
+        int row=mNoteDbOpenHelper.deleteFromDbById(note.getId()+"");
+        if (row>0){
+            removeData(position);
+        }
+
+        new SendBroadcast().SendBroaCcast(mContext);
+    }
     private void removeData(int position) {
         mBeanList.remove(position);
 
@@ -270,6 +253,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ImageButton mIbRemove;
         ViewGroup mVgItem;
         CardView mCardView;
+        CardView mCardViewSlide;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -280,6 +264,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             this.mIbRemove=itemView.findViewById(R.id.remove_item);
             this.mVgItem=itemView.findViewById(R.id.LinearLayout_item);
             this.mCardView=itemView.findViewById(R.id.card_item_main);
+            this.mCardViewSlide=itemView.findViewById(R.id.card_item_main_slide);
         }
     }
 
@@ -300,5 +285,23 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return (d2 - d1);
     }
 
+    /*public void sendBroadcast(){
+        // 延迟发送更新广播，目的是回到桌面后更新小部件视图
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(800);
+                } catch (InterruptedException e) {
+//                            e.printStackTrace();
+                } finally {
+                    // 发送更新广播
+                    Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE", null, mContext, WidgetSingleObject22.class);
+                    intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[]{0});
+                    mContext.sendBroadcast(intent);
+                }
+            }
+        }.start();
+    }*/
 
 }

@@ -80,7 +80,19 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <!--日期选择器样式-->
+    <style name="ThemeDialog" parent="android:Theme.Material.Light.Dialog">
+        <item name="android:colorAccent">#A9A0E3</item>
+        <item name="android:colorPrimary">#A9A0E3</item>
+        <item name="android:colorPrimaryDark">#A9A0E3</item>
+        <item name="android:dialogCornerRadius">19dp</item>
+    </style>
 
+    <!--高斯模糊样式-->
+    <style name="BlurMain">
+        <item name="realtimeOverlayColor">#00ffffff</item>
+        <item name="realtimeBlurRadius">30dp</item>
+    </style>
 
 
 </resources>

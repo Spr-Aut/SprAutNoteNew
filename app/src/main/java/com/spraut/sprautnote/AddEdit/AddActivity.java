@@ -1,5 +1,6 @@
 package com.spraut.sprautnote.AddEdit;
 
+import android.Manifest;
 import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -8,6 +9,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,10 +28,13 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.hw.ycshareelement.YcShareElement;
 import com.hw.ycshareelement.transition.IShareElements;
@@ -40,6 +45,7 @@ import com.spraut.sprautnote.Image.ImageActivity;
 import com.spraut.sprautnote.MainActivity;
 import com.spraut.sprautnote.R;
 import com.spraut.sprautnote.DataBase.Note;
+import com.spraut.sprautnote.widget.SendBroadcast;
 import com.spraut.sprautnote.widget.WidgetSingleObject22;
 
 import java.io.File;
@@ -117,8 +123,8 @@ public class AddActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //震动
-                Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
-                vibrator.vibrate(VibrationEffect.EFFECT_CLICK);
+                /*Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
+                vibrator.vibrate(VibrationEffect.EFFECT_CLICK);*/
 
                 showDatePickDlg();
             }
@@ -129,9 +135,9 @@ public class AddActivity extends AppCompatActivity {
         mBtnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //震动
+                /*//震动
                 Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
-                vibrator.vibrate(VibrationEffect.EFFECT_CLICK);
+                vibrator.vibrate(VibrationEffect.EFFECT_CLICK);*/
 
                 Note note=new Note();
 
@@ -167,22 +173,7 @@ public class AddActivity extends AppCompatActivity {
                 }
                 finishAfterTransition();
 
-                // 延迟发送更新广播，目的是回到桌面后更新小部件视图
-                new Thread() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(800);
-                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-                        } finally {
-                            // 发送更新广播
-                            Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE", null, AddActivity.this, WidgetSingleObject22.class);
-                            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[]{0});
-                            sendBroadcast(intent);
-                        }
-                    }
-                }.start();
+                new SendBroadcast().SendBroaCcast(AddActivity.this);
             }
         });
 
@@ -190,9 +181,9 @@ public class AddActivity extends AppCompatActivity {
         mBtnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //震动
+                /*//震动
                 Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
-                vibrator.vibrate(VibrationEffect.EFFECT_CLICK);
+                vibrator.vibrate(VibrationEffect.EFFECT_CLICK);*/
 
                 /*Intent intent=new Intent(AddActivity.this, MainActivity.class);
                 startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(AddActivity.this).toBundle());*/
@@ -242,19 +233,39 @@ public class AddActivity extends AppCompatActivity {
         mBtnAddPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //震动
+                /*//震动
                 Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
-                vibrator.vibrate(VibrationEffect.EFFECT_CLICK);
+                vibrator.vibrate(VibrationEffect.EFFECT_CLICK);*/
 
-                int selectedMode = PhotoPickerActivity.MODE_SINGLE;
-                boolean showCamera = false;
-                int maxNum = PhotoPickerActivity.DEFAULT_NUM;
+                int hasStoragePermission= ContextCompat.checkSelfPermission(getApplication(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                int PERMISSION_STORAGE_REQUEST_CODE = 0;
 
-                Intent intent = new Intent(AddActivity.this, PhotoPickerActivity.class);
-                intent.putExtra(PhotoPickerActivity.EXTRA_SHOW_CAMERA, showCamera);
-                intent.putExtra(PhotoPickerActivity.EXTRA_SELECT_MODE, selectedMode);
-                intent.putExtra(PhotoPickerActivity.EXTRA_MAX_MUN, maxNum);
-                startActivityForResult(intent, PICK_PHOTO);
+                if (hasStoragePermission!=PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(AddActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},PERMISSION_STORAGE_REQUEST_CODE);
+                }else {
+                    PERMISSION_STORAGE_REQUEST_CODE=1;
+                }
+                if (PERMISSION_STORAGE_REQUEST_CODE==1){
+                    //收起软键盘
+                    InputMethodManager inputMethodManager = (InputMethodManager)getSystemService( Context.INPUT_METHOD_SERVICE);
+                    if (inputMethodManager!=null){
+                        inputMethodManager.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(),0);
+                    }
+
+                    int selectedMode = PhotoPickerActivity.MODE_SINGLE;
+                    boolean showCamera = false;
+                    int maxNum = PhotoPickerActivity.DEFAULT_NUM;
+
+                    Intent intent = new Intent(AddActivity.this, PhotoPickerActivity.class);
+                    intent.putExtra(PhotoPickerActivity.EXTRA_SHOW_CAMERA, showCamera);
+                    intent.putExtra(PhotoPickerActivity.EXTRA_SELECT_MODE, selectedMode);
+                    intent.putExtra(PhotoPickerActivity.EXTRA_MAX_MUN, maxNum);
+                    startActivityForResult(intent, PICK_PHOTO);
+                }else {
+                    Toast.makeText(AddActivity.this,"添加图片需要授予本应用读取照片的权限",Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
 
@@ -346,7 +357,8 @@ public class AddActivity extends AppCompatActivity {
         int month = mcalendar.get(Calendar.MONTH);       //  得到当前月
         final int day = mcalendar.get(Calendar.DAY_OF_MONTH);  //  得到当前日
 
-        new DatePickerDialog(AddActivity.this, new DatePickerDialog.OnDateSetListener() {      //  日期选择对话框
+        int themResId=0;
+        new DatePickerDialog(AddActivity.this,R.style.ThemeDialog, new DatePickerDialog.OnDateSetListener() {      //  日期选择对话框
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 //  这个方法是得到选择后的 年，月，日，分别对应着三个参数 — year、month、dayOfMonth

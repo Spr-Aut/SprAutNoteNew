@@ -9,15 +9,15 @@
     >
 
     <!--列表-->
-    <androidx.recyclerview.widget.RecyclerView
+    <com.spraut.sprautnote.SlideRecyclerView.SlideRecyclerView
         android:id="@+id/rc_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingTop="80dp"
+        android:paddingTop="90dp"
         android:paddingBottom="@dimen/padding_bottom_main"
         >
-    </androidx.recyclerview.widget.RecyclerView>
+    </com.spraut.sprautnote.SlideRecyclerView.SlideRecyclerView>
 
     <com.spraut.sprautnote.RoundShapeBulr
         android:layout_width="52dp"
@@ -26,14 +26,12 @@
         android:layout_alignParentBottom="true"
         android:layout_marginRight="39dp"
         android:layout_marginBottom="54dp"
-        app:realtimeOverlayColor="#00ffffff"
-        app:realtimeBlurRadius="20dp"
+        style="@style/BlurMain"
         />
     <com.spraut.sprautnote.Blur.RealtimeBlurView
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        app:realtimeOverlayColor="#00ffffff"
-        app:realtimeBlurRadius="30dp"
+        style="@style/BlurMain"
         />
 
     <!--顶部标题栏-->
