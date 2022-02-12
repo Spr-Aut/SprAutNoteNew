@@ -96,14 +96,14 @@ public class MainActivity extends Activity {
         //添加Item页面
         mBtnAdd=findViewById(R.id.btn_main_add);
         mBtnAdd.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
 
-                /*//震动
+                //震动
                 Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
-                *//*vibrator.vibrate(VibrationEffect.EFFECT_CLICK);*//*
-                long[] pattern={0,1};
-                vibrator.vibrate(pattern,-1);*/
+                vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK));
+
 
                 Pair pairAdd=new Pair<>(mBtnAdd,"mBtnAdd");
                 ActivityOptions activityOptions=ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,pairAdd);
@@ -135,9 +135,9 @@ public class MainActivity extends Activity {
         mIvInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*//震动
+                //震动
                 Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
-                vibrator.vibrate(VibrationEffect.EFFECT_CLICK);*/
+                vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK));
 
                 Pair pairInfo=new Pair<>(mIvInfo,"mIvInfo");
                 ActivityOptions activityOptions=ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,pairInfo);
@@ -152,9 +152,9 @@ public class MainActivity extends Activity {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                /*//震动
+                //震动
                 Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
-                vibrator.vibrate(VibrationEffect.EFFECT_CLICK);*/
+                vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK));
 
                 Pair pairSearch=new Pair<>(mIvSearch,"mIvSearch");
                 ActivityOptions activityOptions=ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,pairSearch);

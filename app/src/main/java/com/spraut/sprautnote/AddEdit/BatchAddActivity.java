@@ -1,7 +1,10 @@
 package com.spraut.sprautnote.AddEdit;
 
+import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -53,6 +56,10 @@ public class BatchAddActivity extends AppCompatActivity {
         mBtnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //震动
+                Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
+                vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK));
+
                 if (editBatchAdd.getText().toString().trim().equals("")){
                     Toast.makeText(BatchAddActivity.this,"请输入",Toast.LENGTH_SHORT).show();
                 }else {

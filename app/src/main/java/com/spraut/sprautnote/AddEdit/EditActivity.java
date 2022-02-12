@@ -123,9 +123,9 @@ public class EditActivity extends Activity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                /*//震动
+                //震动
                 Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
-                vibrator.vibrate(VibrationEffect.EFFECT_CLICK);*/
+                vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK));
 
                 showDatePickDlg();
             }
@@ -136,9 +136,9 @@ public class EditActivity extends Activity {
         mBtnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*//震动
+                //震动
                 Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
-                vibrator.vibrate(VibrationEffect.EFFECT_CLICK);*/
+                vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK));
 
                 String date_end = null;
                 if ((MONTH_SELECTED<10)&&(DAY_SELECTED>=10)){
@@ -180,9 +180,9 @@ public class EditActivity extends Activity {
         mBtnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*//震动
+                //震动
                 Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
-                vibrator.vibrate(VibrationEffect.EFFECT_CLICK);*/
+                vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK));
 
                 /*Intent intent=new Intent(EditActivity.this, MainActivity.class);
                 startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(EditActivity.this).toBundle());*/
@@ -201,9 +201,9 @@ public class EditActivity extends Activity {
         mBtnAddPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*//震动
+                //震动
                 Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
-                vibrator.vibrate(VibrationEffect.EFFECT_CLICK);*/
+                vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK));
 
                 int hasStoragePermission= ContextCompat.checkSelfPermission(getApplication(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
                 int PERMISSION_STORAGE_REQUEST_CODE = 0;
@@ -271,6 +271,10 @@ public class EditActivity extends Activity {
                     tvDelete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            //震动
+                            Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
+                            vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK));
+
                             Url=null;
                             photo.setImageURI(null);
                             dialog.dismiss();

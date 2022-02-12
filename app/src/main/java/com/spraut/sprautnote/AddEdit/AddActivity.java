@@ -135,9 +135,9 @@ public class AddActivity extends AppCompatActivity {
         mBtnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*//震动
+                //震动
                 Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
-                vibrator.vibrate(VibrationEffect.EFFECT_CLICK);*/
+                vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK));
 
                 Note note=new Note();
 
@@ -181,9 +181,9 @@ public class AddActivity extends AppCompatActivity {
         mBtnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*//震动
+                //震动
                 Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
-                vibrator.vibrate(VibrationEffect.EFFECT_CLICK);*/
+                vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK));
 
                 /*Intent intent=new Intent(AddActivity.this, MainActivity.class);
                 startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(AddActivity.this).toBundle());*/
@@ -216,7 +216,7 @@ public class AddActivity extends AppCompatActivity {
             public boolean onLongClick(View v) {
                 //震动
                 Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
-                vibrator.vibrate(VibrationEffect.EFFECT_CLICK);
+                vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK));
 
                 Pair pairAdd=new Pair<>(mBtnConfirm,"mBtnAddBatch");
                 ActivityOptions activityOptions= ActivityOptions.makeSceneTransitionAnimation(com.spraut.supernote.AddActivity.this,pairAdd);
@@ -233,9 +233,9 @@ public class AddActivity extends AppCompatActivity {
         mBtnAddPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*//震动
+                //震动
                 Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
-                vibrator.vibrate(VibrationEffect.EFFECT_CLICK);*/
+                vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK));
 
                 int hasStoragePermission= ContextCompat.checkSelfPermission(getApplication(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
                 int PERMISSION_STORAGE_REQUEST_CODE = 0;
@@ -336,6 +336,10 @@ public class AddActivity extends AppCompatActivity {
                     tvDelete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            //震动
+                            Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
+                            vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK));
+
                             Url=null;
                             photo.setImageURI(null);
                             dialog.dismiss();
