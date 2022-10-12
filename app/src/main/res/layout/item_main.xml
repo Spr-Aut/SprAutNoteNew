@@ -15,8 +15,10 @@
         android:layout_marginVertical="10dp"
         android:layout_marginHorizontal="@dimen/padding_horizontal_main"
 
+
         >
         <RelativeLayout
+            android:id="@+id/bg_item_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="12dp"

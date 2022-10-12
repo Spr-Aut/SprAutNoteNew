@@ -64,6 +64,8 @@
         \n
         v0.5.22021201 修复点击按钮无法震动的问题\n
         \n
+        v0.5.22101201 修改临近事件的背景颜色（主界面+小组件），3天内为浅红色，当天为红色
+        \n
     </string>
-    <string name="version">v0.5.22021201</string>
+    <string name="version">v0.5.22101201</string>
 </resources>

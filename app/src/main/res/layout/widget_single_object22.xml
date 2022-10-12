@@ -1,15 +1,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:padding="@dimen/widget_margin"
     android:theme="@style/ThemeOverlay.SprAutNote.AppWidgetContainer"
-    android:id="@+id/widget_single_object22"
-    >
+    android:id="@+id/widget_single_object22">
     <RelativeLayout
+        android:id="@+id/tv_widget_bg22"
         android:layout_width="440px"
         android:layout_height="435px"
         android:background="@drawable/bg_main_widget"
         >
+        <!--背景-->
+        <ImageView
+            android:id="@+id/iv_widget_bg22"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            tools:background="@drawable/widget_background"
+            />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -76,6 +86,9 @@
             </RelativeLayout>
 
         </LinearLayout>
+
+
+
     </RelativeLayout>
 
 

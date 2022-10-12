@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -70,7 +71,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             return myViewHolder;
         }else if (viewType==TYPE_GRID_LAYOUT){
             View view=mLayoutInflater.inflate(R.layout.item_main,parent,false);
-            MyViewHolder myViewHolder=new MyViewHolder(view);
+            MyViewHolder myViewHolder=new MyViewHolder(view); 
             return myViewHolder;
         }
         return null;
@@ -98,6 +99,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         holder.mVgItem.setVisibility(View.VISIBLE);
         holder.mCardView.setVisibility(View.VISIBLE);
         holder.mCardViewSlide.setVisibility(View.VISIBLE);
+        holder.mBgItem.setVisibility(View.VISIBLE);
 
 
         Note note=mBeanList.get(position);
@@ -120,12 +122,30 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.mTvRemain.setText(-remain+"天前");
         }
         holder.mTvDate.setText(note.getYear_end()+"年"+note.getMonth_end()+"月"+note.getDay_end()+"日");
-        if(remain<=3&&remain>=0){
-            holder.mTvRemain.setTextColor(Color.argb(255,255,0,0));
-        }else if (remain<0){
+        if(remain==0){//当天
+            holder.mTvRemain.setTextColor(Color.WHITE);
+            holder.mTvObject.setTextColor(Color.WHITE);
+            holder.mTvEvent.setTextColor(Color.WHITE);
+            holder.mTvDate.setTextColor(Color.WHITE);
+            holder.mBgItem.setBackgroundColor(Color.argb(255,253,30,26));
+        }else if(remain<=3&&remain>0){//3天内
+            holder.mTvRemain.setTextColor(Color.BLACK);
+            holder.mTvObject.setTextColor(Color.BLACK);
+            holder.mTvEvent.setTextColor(Color.BLACK);
+            holder.mTvDate.setTextColor(Color.BLACK);
+            holder.mBgItem.setBackgroundColor(Color.argb(200,253,30,26));
+        }else if (remain<0){//超时
             holder.mTvRemain.setTextColor(Color.argb(255,82,136,245));
-        }else if (remain>3){
+            holder.mTvObject.setTextColor(Color.argb(230,0,0,0));
+            holder.mTvEvent.setTextColor(Color.argb(112,0,0,0));
+            holder.mTvDate.setTextColor(Color.argb(77,0,0,0));
+            holder.mBgItem.setBackgroundColor(Color.WHITE);
+        }else if (remain>3){//三天后
             holder.mTvRemain.setTextColor(Color.argb(255,117,117,117));
+            holder.mTvObject.setTextColor(Color.argb(230,0,0,0));
+            holder.mTvEvent.setTextColor(Color.argb(112,0,0,0));
+            holder.mTvDate.setTextColor(Color.argb(77,0,0,0));
+            holder.mBgItem.setBackgroundColor(Color.WHITE);
         }
 
 
@@ -283,6 +303,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ViewGroup mVgItem;
         CardView mCardView;
         CardView mCardViewSlide;
+        RelativeLayout mBgItem;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -294,6 +315,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             this.mVgItem=itemView.findViewById(R.id.LinearLayout_item);
             this.mCardView=itemView.findViewById(R.id.card_item_main);
             this.mCardViewSlide=itemView.findViewById(R.id.card_item_main_slide);
+            this.mBgItem=itemView.findViewById(R.id.bg_item_main);
         }
     }
 

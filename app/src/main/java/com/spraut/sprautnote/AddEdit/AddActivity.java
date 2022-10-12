@@ -73,8 +73,8 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Transition slide_top = TransitionInflater.from(this).inflateTransition(android.R.transition.slide_top);
         Transition slide_bottom=TransitionInflater.from(this).inflateTransition(android.R.transition.slide_bottom);
-        getWindow().setEnterTransition(slide_top);
-        getWindow().setExitTransition(slide_top);
+        getWindow().setEnterTransition(slide_bottom);
+        getWindow().setExitTransition(slide_bottom);
         setContentView(R.layout.activity_basic_add);
 
 
@@ -133,6 +133,7 @@ public class AddActivity extends AppCompatActivity {
 
         //确认按钮
         mBtnConfirm.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 //震动
@@ -179,6 +180,7 @@ public class AddActivity extends AppCompatActivity {
 
         //取消按钮
         mBtnCancel.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 //震动
@@ -231,6 +233,7 @@ public class AddActivity extends AppCompatActivity {
         /*“选择图片”点击事件*/
         mBtnAddPhoto=findViewById(R.id.btn_photo_picker);
         mBtnAddPhoto.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 //震动
@@ -334,6 +337,7 @@ public class AddActivity extends AppCompatActivity {
 
                     //点击删除
                     tvDelete.setOnClickListener(new View.OnClickListener() {
+                        @RequiresApi(api = Build.VERSION_CODES.O)
                         @Override
                         public void onClick(View v) {
                             //震动

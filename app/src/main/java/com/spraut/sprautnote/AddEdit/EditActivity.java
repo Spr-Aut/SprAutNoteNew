@@ -85,8 +85,8 @@ public class EditActivity extends Activity {
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         Transition slide_top = TransitionInflater.from(this).inflateTransition(android.R.transition.slide_top);
         Transition slide_bottom=TransitionInflater.from(this).inflateTransition(android.R.transition.slide_bottom);
-        getWindow().setEnterTransition(slide_top);
-        getWindow().setExitTransition(slide_top);
+        getWindow().setEnterTransition(slide_bottom);
+        getWindow().setExitTransition(slide_bottom);
 
         setContentView(R.layout.activity_basic_add);
 

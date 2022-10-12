@@ -35,6 +35,7 @@ public class WidgetSingleObject22 extends AppWidgetProvider {
         Intent intentClick=new Intent(context,MainActivity.class);
         PendingIntent pendingIntent=PendingIntent.getActivity(context,appWidgetId,intentClick,PendingIntent.FLAG_UPDATE_CURRENT);
         views.setOnClickPendingIntent(R.id.widget_single_object22,pendingIntent);
+        views.setInt(R.id.iv_widget_bg22,"setImageResource",R.drawable.widget_background);//初始化背景
 
         NoteDbOpenHelper noteDbOpenHelper=new NoteDbOpenHelper(context);
         List<Note> mNote=noteDbOpenHelper.queryAllFromDb();
@@ -70,9 +71,10 @@ public class WidgetSingleObject22 extends AppWidgetProvider {
                 }
             }
 
-            if (noteOverdueCounter>0){
+            if (noteOverdueCounter>0){//过期事件计数
                 views.setTextViewText(R.id.tv_widget_overduecounter22,noteOverdueCounter+"");
                 views.setTextColor(R.id.tv_widget_overduecounter22,Color.argb(255,82,136,245));
+
             }else {
                 views.setTextViewText(R.id.tv_widget_overduecounter22,"");//overduecounter
             }
@@ -103,12 +105,35 @@ public class WidgetSingleObject22 extends AppWidgetProvider {
             }else if (remain<0){
                 views.setTextViewText(R.id.tv_widget_remain22,-remain+"天前");
             }
-            if(remain<=3&&remain>=0){
-                views.setTextColor(R.id.tv_widget_remain22,Color.argb(255,255,0,0));
-            }else if (remain<0){
+            if(remain==0){//当天
+                views.setTextColor(R.id.tv_widget_remain22,Color.WHITE);
+                views.setTextColor(R.id.tv_widget_overduecounter22,Color.WHITE);
+                views.setTextColor(R.id.tv_widget_object22,Color.WHITE);
+                views.setTextColor(R.id.tv_widget_event22,Color.WHITE);
+                views.setTextColor(R.id.tv_widget_date22,Color.WHITE);
+                views.setInt(R.id.iv_widget_bg22,"setColorFilter",Color.argb(255,253,30,26));//红色
+            }else if(remain<=3&&remain>0){//3天内
+                views.setTextColor(R.id.tv_widget_remain22,Color.BLACK);
+                views.setTextColor(R.id.tv_widget_overduecounter22,Color.BLACK);
+                views.setTextColor(R.id.tv_widget_object22,Color.BLACK);
+                views.setTextColor(R.id.tv_widget_event22,Color.BLACK);
+                views.setTextColor(R.id.tv_widget_date22,Color.BLACK);
+                views.setInt(R.id.iv_widget_bg22,"setColorFilter",Color.argb(200,253,30,26));//浅红色
+
+            }else if (remain<0){//超时
                 views.setTextColor(R.id.tv_widget_remain22,Color.argb(255,82,136,245));
-            }else if (remain>3){
+                views.setTextColor(R.id.tv_widget_overduecounter22,Color.argb(255,82,136,245));
+                views.setTextColor(R.id.tv_widget_object22,Color.argb(230,0,0,0));
+                views.setTextColor(R.id.tv_widget_event22,Color.argb(112,0,0,0));
+                views.setTextColor(R.id.tv_widget_date22,Color.argb(77,0,0,0));
+                views.setInt(R.id.iv_widget_bg22,"setColorFilter",Color.argb(255,255,255,255));//白色
+            }else if (remain>3){//3天后
                 views.setTextColor(R.id.tv_widget_remain22,Color.argb(255,117,117,117));
+                views.setTextColor(R.id.tv_widget_overduecounter22,Color.argb(255,82,136,245));
+                views.setTextColor(R.id.tv_widget_object22,Color.argb(230,0,0,0));
+                views.setTextColor(R.id.tv_widget_event22,Color.argb(112,0,0,0));
+                views.setTextColor(R.id.tv_widget_date22,Color.argb(77,0,0,0));
+                views.setInt(R.id.iv_widget_bg22,"setColorFilter",Color.argb(255,255,255,255));//白色
             }
 
             // Instruct the widget manager to update the widget
