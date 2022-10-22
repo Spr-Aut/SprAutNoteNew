@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">速记</string>
+
+    <string name="channel_name">悬浮通知</string>
+    <string name="channel_description">再屏幕上弹出通知</string>
+
     <dimen name="rectangel_radius">19dp</dimen>
     <dimen name="padding_horizontal_main">25dp</dimen>
     <dimen name="padding_top_main">40dp</dimen>

@@ -47,6 +47,13 @@
         <activity android:name=".SearchActivity" />
         <activity android:name="com.lling.photopicker.PhotoPickerActivity" />
         <activity android:name=".AboutActivity" />
+
+        <receiver android:name=".Notify.notifyBroadcastReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.INPUT_METHOD_CHANGED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

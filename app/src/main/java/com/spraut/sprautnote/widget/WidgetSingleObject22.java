@@ -98,8 +98,10 @@ public class WidgetSingleObject22 extends AppWidgetProvider {
             views.setTextViewText(R.id.tv_widget_date22, month_aim+"月"+day_aim+"日");
 
             //设置剩余时间
-            if (remain>0){
+            if (remain>1){
                 views.setTextViewText(R.id.tv_widget_remain22,remain+"天后");
+            }else if (remain==1){
+                views.setTextViewText(R.id.tv_widget_remain22,"明天");
             }else if (remain==0){
                 views.setTextViewText(R.id.tv_widget_remain22,"今天");
             }else if (remain<0){

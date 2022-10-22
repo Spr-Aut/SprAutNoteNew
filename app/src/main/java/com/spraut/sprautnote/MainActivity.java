@@ -7,7 +7,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Build;
@@ -22,6 +28,7 @@ import android.transition.Slide;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.Pair;
 import android.util.Xml;
 import android.view.Gravity;
@@ -41,6 +48,7 @@ import com.spraut.sprautnote.AddEdit.BatchAddActivity;
 import com.spraut.sprautnote.Blur.RealtimeBlurView;
 import com.spraut.sprautnote.DataBase.Note;
 import com.spraut.sprautnote.DataBase.NoteDbOpenHelper;
+import com.spraut.sprautnote.Notify.notifyBroadcastReceiver;
 
 import org.xmlpull.v1.XmlPullParser;
 
@@ -57,6 +65,8 @@ public class MainActivity extends Activity {
     private ImageView mIvIcon;
     private ImageView mIvSearch;
     private TextView mTvTimeNow;
+    public static int notifyId=0;
+    private String CHANNEL_ID ="channelID";
 
 
     private NoteDbOpenHelper mNoteDbOpenHelper;
@@ -77,7 +87,7 @@ public class MainActivity extends Activity {
         /*window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);*/
         window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
-
+        createNotificationChannel();
 
         initView();
         initData();
@@ -104,30 +114,38 @@ public class MainActivity extends Activity {
                 Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
                 vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK));
 
-
                 Pair pairAdd=new Pair<>(mBtnAdd,"mBtnAdd");
                 ActivityOptions activityOptions=ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,pairAdd);
                 Intent intent=new Intent(MainActivity.this, AddActivity.class);
                 startActivity(intent,activityOptions.toBundle());
-                /*Intent intent=new Intent(MainActivity.this,AddActivity.class);
-                startActivity(intent);*/
+
 
             }
         });
 
         //长按添加
-        /*mBtnAdd.setOnLongClickListener(new View.OnLongClickListener() {
+        mBtnAdd.setOnLongClickListener(new View.OnLongClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public boolean onLongClick(View v) {
 
-                Pair pairAdd=new Pair<>(mBtnAdd,"mBtnAddBatch");
+                /*Pair pairAdd=new Pair<>(mBtnAdd,"mBtnAddBatch");
                 ActivityOptions activityOptions=ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,pairAdd);
                 Intent intent=new Intent(MainActivity.this, BatchAddActivity.class);
-                startActivity(intent,activityOptions.toBundle());
+                startActivity(intent,activityOptions.toBundle());*/
+                //震动
+                Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
+                vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK));
+
+                Intent intent = new Intent();
+                intent.setAction("NOTIFICATION");
+                intent.setComponent(new ComponentName("com.spraut.sprautnote","com.spraut.sprautnote.Notify.notifyBroadcastReceiver"));
+                sendBroadcast(intent);
+                Log.i("broadcast","发送广播");
 
                 return true;
             }
-        });*/
+        });
 
 
         //关于应用页面
@@ -143,6 +161,8 @@ public class MainActivity extends Activity {
                 ActivityOptions activityOptions=ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,pairInfo);
                 Intent intent=new Intent(MainActivity.this,AboutActivity.class);
                 startActivity(intent,activityOptions.toBundle());
+
+                setAlarm();
             }
         });
 
@@ -198,6 +218,47 @@ public class MainActivity extends Activity {
 
     private void initView() {
         mRecyclerView = findViewById(R.id.rc_main);
+    }
+
+    //创建通知渠道
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    private void setAlarm(){
+        Log.i("broadcast","设置定时");
+        Intent intent=new Intent(MainActivity.this, notifyBroadcastReceiver.class);
+        intent.setAction("NOTIFICATION");
+        intent.setComponent(new ComponentName("com.spraut.sprautnote","com.spraut.sprautnote.Notify.notifyBroadcastReceiver"));
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
+
+        // Set the alarm to start at approximately 2:00 p.m.
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
+        calendar.set(Calendar.MINUTE,0);
+
+        // With setInexactRepeating(), you have to use one of the AlarmManager interval
+        // constants--in this case, AlarmManager.INTERVAL_DAY.
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, pendingIntent);
+
+        Log.i("broadcast","定时设置完成");
+
     }
 
 }

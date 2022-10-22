@@ -114,8 +114,10 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         holder.mTvObject.setText(note.getObject());
         holder.mTvEvent.setText(note.getEvent());
-        if (remain>0){
+        if (remain>1){
             holder.mTvRemain.setText(remain+"天后");
+        }else if (remain==1){
+            holder.mTvRemain.setText("明天");
         }else if (remain==0){
             holder.mTvRemain.setText("今天");
         }else if (remain<0){
@@ -319,7 +321,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    public int day_minus(int year_start, int month_start, int day_start, int year_end, int month_end, int day_end) {
+    public static int day_minus(int year_start, int month_start, int day_start, int year_end, int month_end, int day_end) {
         int y2, m2, d2;
         int y1, m1, d1;
         /*用于判断日期是否大于3月（2月是判断闰年的标识），还用于纪录到3月的间隔月数*/
