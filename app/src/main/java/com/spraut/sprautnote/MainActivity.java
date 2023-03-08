@@ -162,7 +162,7 @@ public class MainActivity extends Activity {
                 Intent intent=new Intent(MainActivity.this,AboutActivity.class);
                 startActivity(intent,activityOptions.toBundle());
 
-                setAlarm();
+                setAlarm(10,0);
             }
         });
 
@@ -238,7 +238,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void setAlarm(){
+    private void setAlarm(int hour,int minute){
         Log.i("broadcast","设置定时");
         Intent intent=new Intent(MainActivity.this, notifyBroadcastReceiver.class);
         intent.setAction("NOTIFICATION");
@@ -249,8 +249,8 @@ public class MainActivity extends Activity {
         // Set the alarm to start at approximately 2:00 p.m.
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 10);
-        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE,minute);
 
         // With setInexactRepeating(), you have to use one of the AlarmManager interval
         // constants--in this case, AlarmManager.INTERVAL_DAY.
